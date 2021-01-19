@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "635146206825",
+    "project_id": "apna-aasiyana",
+    "storage_bucket": "apna-aasiyana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635146206825:android:880897cab05b1d8dc3acf8",
+        "android_client_info": {
+          "package_name": "com.example.apnaaasiyana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635146206825-pmfuriai81s5ja9b7nka8djjb7fg9lgs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.apnaaasiyana",
+            "certificate_hash": "9c3ae7c5c705e1cdeb9726f2d5520ac0aa814b46"
+          }
+        },
+        {
+          "client_id": "635146206825-ne6pt2n6m01e2b2nvioeqbafe1sdvofl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD90QvhcXUVLQp0QAX4LRriHOB4GSyj7eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635146206825-ne6pt2n6m01e2b2nvioeqbafe1sdvofl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
