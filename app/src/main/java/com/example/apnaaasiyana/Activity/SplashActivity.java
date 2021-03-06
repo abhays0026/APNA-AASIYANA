@@ -1,4 +1,4 @@
-package com.example.apnaaasiyana;
+package com.example.apnaaasiyana.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.example.apnaaasiyana.data.RegisterActivity;
+import com.example.apnaaasiyana.R;
 
 public class SplashActivity extends AppCompatActivity {
 

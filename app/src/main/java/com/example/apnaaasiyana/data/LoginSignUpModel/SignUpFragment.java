@@ -1,4 +1,4 @@
-package com.example.apnaaasiyana.data.model;
+package com.example.apnaaasiyana.data.LoginSignUpModel;
 
 
 import android.content.Intent;
@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.service.autofill.UserData;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,20 +20,14 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.example.apnaaasiyana.MainActivity;
-import com.example.apnaaasiyana.R;
-import com.example.apnaaasiyana.data.UserClasses.UserDetails;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.apnaaasiyana.Activity.MainActivity;
+import com.example.apnaaasiyana.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import static com.example.apnaaasiyana.FireBaseQueries.UserAuthentication.createUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -181,46 +174,10 @@ public class SignUpFragment extends Fragment {
 
                 signUpFloatingBtn.setEnabled(false);
 
-                firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                createUser(getActivity(),userEmail, userPassword,userName.getText().toString() );
 
-                        if (task.isSuccessful()) {
+                //if(flag == )
 
-                            Map<Object, UserDetails> user = new HashMap<>();
-                            UserDetails userDetails = new UserDetails();
-                            userDetails.setUserEmail(userEmail);
-                            userDetails.setUserName(userName.getText().toString());
-                            userDetails.setUserPassword(userPassword);
-
-                            user.put("UserDetails", userDetails);
-
-                            firestore.collection("USERS")
-                                    .add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-
-                                    if (task.isSuccessful()) {
-                                        mainIntent();
-                                    } else {
-
-                                        signUpFloatingBtn.setEnabled(true);
-                                        String error = task.getException().getMessage();
-                                        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
-
-                                    }
-
-                                }
-                            });
-
-                        } else {
-                            signUpFloatingBtn.setEnabled(true);
-                            String error = task.getException().getMessage();
-                            Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
 
             } else {
 

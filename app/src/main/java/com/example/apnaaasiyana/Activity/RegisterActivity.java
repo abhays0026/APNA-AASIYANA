@@ -1,28 +1,50 @@
-package com.example.apnaaasiyana.data;
+package com.example.apnaaasiyana.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.example.apnaaasiyana.R;
-import com.example.apnaaasiyana.data.model.SignInFragment;
-import com.example.apnaaasiyana.data.model.SignUpFragment;
+import com.example.apnaaasiyana.data.LoginSignUpModel.SignInFragment;
+import com.example.apnaaasiyana.data.LoginSignUpModel.SignUpFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FrameLayout frameLayout;
+    private FirebaseAuth mAuth;
 
     public static boolean OnResetPasswordFragment = false;
     public static boolean setSignUpFragment = false;
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        //Todo : get specific user details, and take him to the mainIntent
+//        //for now just dummy intent being used
+//
+//        if(currentUser != null){
+//
+//            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+//
+//        }
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mAuth = FirebaseAuth.getInstance();
 
         getSupportActionBar().hide();
 
@@ -33,6 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
             setDefaultFragment(new SignUpFragment());
         } else {
             setDefaultFragment(new SignInFragment());
+        }
+
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //Todo : get specific user details, and take him to the mainIntent
+        //for now just dummy intent being used
+
+        if(currentUser != null){
+
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+
         }
 
     }

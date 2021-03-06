@@ -1,4 +1,4 @@
-package com.example.apnaaasiyana.data.model;
+package com.example.apnaaasiyana.data.LoginSignUpModel;
 
 
 import android.content.Intent;
@@ -21,7 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.apnaaasiyana.MainActivity;
+import com.example.apnaaasiyana.Activity.MainActivity;
 import com.example.apnaaasiyana.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import static com.example.apnaaasiyana.data.RegisterActivity.OnResetPasswordFragment;
+import static com.example.apnaaasiyana.Activity.RegisterActivity.OnResetPasswordFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +66,7 @@ public class SignInFragment extends Fragment {
         floatingActionButton = view.findViewById(R.id.sign_in_page_floating_btn);
         forgotPassword = view.findViewById(R.id.forgot_pass_text_view);
         floatingActionButton.setEnabled(false);
+        registerPageBtn = view.findViewById(R.id.sign_up_page_btn);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -77,6 +78,13 @@ public class SignInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        registerPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(new SignUpFragment());
+            }
+        });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +102,7 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        registerPageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFragment(new SignUpFragment());
-            }
-        });
+
 
         userEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,7 +152,8 @@ public class SignInFragment extends Fragment {
 
                 floatingActionButton.setEnabled(true);
 
-                firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(), userPassword.getText().toString())
+                firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
+                        userPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

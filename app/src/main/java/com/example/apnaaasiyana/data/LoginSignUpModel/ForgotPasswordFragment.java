@@ -1,4 +1,4 @@
-package com.example.apnaaasiyana.data.model;
+package com.example.apnaaasiyana.data.LoginSignUpModel;
 
 
 import android.graphics.Color;

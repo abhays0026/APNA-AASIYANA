@@ -16,9 +16,9 @@
 <!--        android:startColor="#0189ff"-->
 <!--        android:type="linear" />-->
 
-<!--    &lt;!&ndash;If your shape requires only one solid color&ndash;&gt;-->
+<!--    &lt;!&ndash;If your shape requires only one solid backgroundColor&ndash;&gt;-->
 <!--    &lt;!&ndash;<solid-->
-<!--        android:color="#FFFFFF" />&ndash;&gt;-->
+<!--        android:backgroundColor="#FFFFFF" />&ndash;&gt;-->
 
 <!--    <size-->
 <!--        android:width="82dp"-->
@@ -28,7 +28,7 @@
 <!--    to add dashes to your stroke&ndash;&gt;-->
 <!--    <stroke-->
 <!--        android:width="2dp"-->
-<!--        android:color="#FFFFFF" />-->
+<!--        android:backgroundColor="#FFFFFF" />-->
 
 <!--    &lt;!&ndash;If you want to add padding&ndash;&gt;-->
 <!--    &lt;!&ndash; <padding-->
@@ -58,9 +58,9 @@
                 android:startColor="#311b92"
                 android:type="linear" />
 
-            <!--If your shape requires only one solid color-->
+            <!--If your shape requires only one solid backgroundColor-->
             <!--<solid
-                android:color="#FFFFFF" />-->
+                android:backgroundColor="#FFFFFF" />-->
 
             <size
                 android:width="82dp"
