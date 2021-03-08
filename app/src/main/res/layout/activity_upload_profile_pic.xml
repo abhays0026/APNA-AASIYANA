@@ -4,6 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.UploadProfilePicActivity">
+    tools:context=".Activity.UploadProfilePic">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/upload_profile_pic_image_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:elevation="6dp"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/profile_placeholder"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/skip_for_now_text_view" />
+
+    <TextView
+        android:id="@+id/skip_for_now_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="Skip for Now -->"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/upload_profile_picture_btn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Upload "
+        android:elevation="12dp"
+        android:backgroundTint="@color/orangeBackground"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_profile_pic_image_view" />
+
+    <ImageButton
+        android:id="@+id/select_image_image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:src="@drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/upload_profile_pic_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/upload_profile_pic_image_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

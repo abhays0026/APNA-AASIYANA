@@ -2,13 +2,16 @@ package com.example.apnaaasiyana.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.apnaaasiyana.Fragments.HomeScreenFragment;
 import com.example.apnaaasiyana.Fragments.MyAccountFragment;
 import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.ui.home.HomeFragment;
-import com.example.apnaaasiyana.utilityClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -28,6 +31,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -43,6 +50,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private StorageReference storageReference;
 
     private static final int DRAWER_CLOSE_DELAY_MS = 1000;
     private AppBarConfiguration mAppBarConfiguration;
@@ -85,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
 
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        StorageReference profilePicStorageReference = storageReference.child("USERS").child("profile_pics")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getEmail() + "_profile_pic");
+        //Uri uri = (Uri)getIntent().getExtras();
 
         //Todo : change the function of floating btn afterwards or remove it
         fab.setOnClickListener(new View.OnClickListener() {
@@ -111,12 +125,14 @@ public class MainActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        profilePic = header.findViewById(R.id.profile_pic);
+        profilePic = header.findViewById(R.id.upload_profile_pic_image_view);
         userName = header.findViewById(R.id.user_name);
         userEmail = header.findViewById(R.id.user_email);
         isProfileVerified = findViewById(R.id.is_profile_verified);
 
-        setUserDetailsInNavView(user);
+
+
+        setUserDetailsInNavView(user, profilePicStorageReference);
 
 
         //navigationView.setNavigationItemSelectedListener(this);
@@ -299,10 +315,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setUserDetailsInNavView(final FirebaseUser user){
+    private void setUserDetailsInNavView(final FirebaseUser user,
+                                         final StorageReference profilePicStorageReference){
 
         if(user != null ){
-            //Toast.makeText(this, "Email : " + R.id.user_email, Toast.LENGTH_SHORT).show();
+            profilePicStorageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(profilePic);
+
+                }
+            });
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
 
@@ -312,8 +335,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-
     }
+
 
 }

@@ -30,6 +30,16 @@
         app:layout_constraintStart_toStartOf="@+id/linearLayout6"
         app:layout_constraintTop_toTopOf="@+id/linearLayout6" />
 
+    <ImageButton
+        android:id="@+id/select_image_image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:src="@drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintEnd_toEndOf="@+id/profile_image" />
+
+
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="wrap_content"
@@ -65,6 +75,7 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/verify_email_text_view"
             android:layout_width="match_parent"
             android:layout_height="14dp"
             android:textSize="8dp"
@@ -75,7 +86,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/settings_btn"
+        android:id="@+id/verify_email_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

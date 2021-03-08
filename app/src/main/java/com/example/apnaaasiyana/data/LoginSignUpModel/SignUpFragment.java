@@ -22,12 +22,14 @@ import android.widget.Toast;
 
 
 import com.example.apnaaasiyana.Activity.MainActivity;
+import com.example.apnaaasiyana.Activity.UploadProfilePic;
 import com.example.apnaaasiyana.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import static com.example.apnaaasiyana.FireBaseQueries.UserAuthentication.createUser;
+import static com.example.apnaaasiyana.FireBaseQueries.UserAuthentication.user;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -174,7 +176,15 @@ public class SignUpFragment extends Fragment {
 
                 signUpFloatingBtn.setEnabled(false);
 
-                createUser(getActivity(),userEmail, userPassword,userName.getText().toString() );
+                createUser(getActivity().getApplicationContext(),userEmail, userPassword,userName.getText().toString() );
+
+//                if(user != null){
+//
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), UploadProfilePic.class);
+//                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+//
+//                }
 
             } else {
 

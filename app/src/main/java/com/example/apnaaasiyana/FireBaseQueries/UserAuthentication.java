@@ -7,12 +7,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.apnaaasiyana.Activity.MainActivity;
+import com.example.apnaaasiyana.Activity.UploadProfilePic;
 import com.example.apnaaasiyana.data.UserClasses.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,8 +30,6 @@ public class UserAuthentication {
     public static void createUser(final Context context, final String userEmail,
                                   final String userPassword, final String userName) {
 
-        // final int[] flag = {0};
-
         firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -37,23 +37,42 @@ public class UserAuthentication {
 
                         if (task.isSuccessful()) {
 
+//                            //Setting the display name
+//                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                    .setDisplayName(userName).build();
+//
+//                            user.updateProfile(profileUpdates)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            if (task.isSuccessful()) {
+//                                                Toast.makeText(context, "Profile Updated Succesfully !", Toast.LENGTH_SHORT).show();
+//                                                //Log.d(TAG, "User profile updated.");
+//                                            }
+//                                        }
+//                                    });
+
+                            setDisplayName(context, userName);
+
 
                             Map<Object, UserDetails> userDetailsMap = new HashMap<>();
                             UserDetails userDetails = new UserDetails();
-                            userDetails.setUserEmail(user.getEmail());
-                            userDetails.setUserName(user.getDisplayName());
+                            userDetails.setUserEmail(userEmail);
+                            userDetails.setUserName(userName);
+//                            userDetails.setUserEmail(user.getEmail());
+//                            userDetails.setUserName(user.getDisplayName());
                             //userDetails.setUserPassword(use);
 
                             userDetailsMap.put("UserDetails", userDetails);
 
                             firestore.collection("USERS")
-                                    .add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    .add(userDetailsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                     if (task.isSuccessful()) {
-                                        Intent intent = new Intent(context, MainActivity.class);
-                                        context.startActivity(intent);
+//                                        Intent intent = new Intent(context, MainActivity.class);
+//                                        context.startActivity(intent);
                                     } else {
 
                                         //signUpFloatingBtn.setEnabled(true);
@@ -65,21 +84,23 @@ public class UserAuthentication {
                                 }
                             });
 
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-
-                            //flag[0] = 1;
+//                            Intent intent = new Intent(context, MainActivity.class);
+//                            context.startActivity(intent);
 
                         } else {
                             // flag[0] = 0;
                             String error = task.getException().getMessage();
                             Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+
                         }
 
                     }
                 });
 
-        // return flag[0];
+        Intent intent = new Intent(context, UploadProfilePic.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("userName", userName);
+        context.startActivity(intent);
 
     }
 
@@ -131,6 +152,28 @@ public class UserAuthentication {
             //restart this activity
 
         }
+
+    }
+
+    private static void setDisplayName(final Context context,final String displayName){
+
+        //String displayName = getIntent().getStringExtra("userName");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName).build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(context, "Display name updated", Toast.LENGTH_SHORT).show();
+                            //Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
 
     }
 

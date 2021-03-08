@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.EditProfile"></activity>
-        <activity android:name=".Activity.UploadProfilePicActivity" />
+        <activity android:name=".Activity.UploadProfilePic" />
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.HouseDetailsActivity" />
         <activity android:name=".Activity.ViewAllActivity" />
