@@ -176,9 +176,6 @@ public class SignUpFragment extends Fragment {
 
                 createUser(getActivity(),userEmail, userPassword,userName.getText().toString() );
 
-                //if(flag == )
-
-
             } else {
 
                 signUpFloatingBtn.setEnabled(true);

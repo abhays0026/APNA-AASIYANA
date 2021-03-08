@@ -1,12 +1,15 @@
 package com.example.apnaaasiyana.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.apnaaasiyana.R;
@@ -23,21 +26,10 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean OnResetPasswordFragment = false;
     public static boolean setSignUpFragment = false;
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        //Todo : get specific user details, and take him to the mainIntent
-//        //for now just dummy intent being used
-//
-//        if(currentUser != null){
-//
-//            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-//
-//        }
-//
-//    }
+    @Override
+    public void onBackPressed() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

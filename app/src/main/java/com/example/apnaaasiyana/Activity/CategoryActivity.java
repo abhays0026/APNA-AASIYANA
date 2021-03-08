@@ -18,6 +18,7 @@ import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.data.Model.HomePageModel;
 import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
 
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +38,6 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        //toolbar = findViewById(R.id.category_activity_toolbar);
-        //setSupportActionBar(toolbar);
-
-        // setSupportActionBar(toolbar);
-
-
         String title = getIntent().getStringExtra("CategoryName");
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,11 +52,15 @@ public class CategoryActivity extends AppCompatActivity {
                 DividerItemDecoration.HORIZONTAL));
 
 
-          if (categoriesMap.get(title) != null) {
+        Toast.makeText(this, "Property : " + title, Toast.LENGTH_SHORT).show();
+
+
+        if (categoriesMap.get(title) != null) {
 
               categoryList = categoriesMap.get(title);
               categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
               categoryRecyclerView.setAdapter(categoryActivityAdapter);
+              //Toast.makeText(this, "First statement ", Toast.LENGTH_SHORT).show();
 
           }else{
 

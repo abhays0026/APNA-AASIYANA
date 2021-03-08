@@ -5,18 +5,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.apnaaasiyana.Activity.CategoryActivity;
 import com.example.apnaaasiyana.Adapters.CategoryActivityAdapter;
 import com.example.apnaaasiyana.Adapters.CategoryAdapter;
+import com.example.apnaaasiyana.Adapters.HouseImagesAdapter;
 import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.data.Model.CategoryModel;
-import com.example.apnaaasiyana.data.Model.HomePageModel;
 import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,8 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.apnaaasiyana.HomeScreenFragment.RENTED_HOUSE;
-import static com.example.apnaaasiyana.HomeScreenFragment.VACANT_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.RENTED_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.VACANT_HOUSE;
 import static com.example.apnaaasiyana.utilityClass.getTypeOfProperty;
 
 public class DBqueries {
@@ -37,6 +34,8 @@ public class DBqueries {
     public static List<CategoryModel> categoryModelList = new ArrayList<>();
 
     public static List<HorizontalProductScrollModel> categoryDataList = new ArrayList<>();
+
+    public static List<String> houseImagesList = new ArrayList<>();
 
     /**
      * List for activities other than the home page
@@ -101,8 +100,8 @@ public class DBqueries {
                                         }
 
                                         int typeOfProperty = getTypeOfProperty(categoryName);
-
-                                        categoryDataList.add(new HorizontalProductScrollModel(
+//                                        categoryDataList.add(new HorizontalProductScrollModel(
+                                        categoriesMap.get(categoryName).add(new HorizontalProductScrollModel(
                                                 (long) documentSnapshot.get("index"),
                                                 (long) typeOfProperty,
                                                 houseType, documentSnapshot.get("houseImage").toString(),
@@ -114,11 +113,7 @@ public class DBqueries {
 
                                     }
 
-                                    categoriesMap.put(categoryName, categoryDataList);
                                     categoryAdapter.notifyDataSetChanged();
-
-                                    Toast.makeText(context, "Successfully loaded",
-                                            Toast.LENGTH_SHORT).show();
 
 
                                 } else {
@@ -129,6 +124,58 @@ public class DBqueries {
                             }
                         }
                 );
+
+        categoryAdapter.notifyDataSetChanged();
+
+    }
+
+
+    public static void loadPropertyData(final HouseImagesAdapter houseImagesAdapter,
+                                        final long index,
+                                        final String typeOfPropertyName,
+                                        final Context context){
+
+        //houseImagesList = new ArrayList<>();
+
+        /**
+         * Trimming sting for "FLATS -> FLAT"
+         *"ROOMS -> ROOM"
+         *
+         * for others , it remains the same
+         *
+         */
+
+        String typeOfPropertyNameTemp = typeOfPropertyName;
+        if(typeOfPropertyName.toUpperCase().equals("FLATS")){
+            typeOfPropertyNameTemp = "Flat";
+        }else if (typeOfPropertyName.toUpperCase().equals("ROOMS")){
+            typeOfPropertyNameTemp = "Room";
+        }
+
+
+      Toast.makeText(context, "Property : " + typeOfPropertyNameTemp + "_" + index, Toast.LENGTH_SHORT).show();
+
+        firestore.collection("CATEGORIES").document(typeOfPropertyName)
+                .collection(typeOfPropertyName.toUpperCase()).document(typeOfPropertyNameTemp+"_" + index)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                DocumentSnapshot documentSnapshot = task.getResult();
+
+                List< String > houseImgList = (List<String>)documentSnapshot.get("houseImages");
+
+                for(int i = 0;i<houseImgList.size(); ++i){
+
+                    houseImagesList.add(houseImgList.get(i));
+
+                }
+
+                houseImagesAdapter.notifyDataSetChanged();
+
+            }
+        });
+
 
     }
 

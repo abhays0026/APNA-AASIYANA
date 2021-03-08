@@ -29,10 +29,11 @@ public class HouseImagesAdapter extends PagerAdapter {
 
         houseImage.setImageResource(R.mipmap.home);
 
-        //Todo : change to glide when you connect it to firebase
-//        Glide.with(container.getContext()).load(houseImages.get(position))
-//                .apply(new RequestOptions().placeholder(R.mipmap.home)).into(houseImage);
-//        container.addView(houseImage, 0);
+
+        Glide.with(container.getContext()).load(houseImages.get(position))
+                .apply(new RequestOptions().placeholder(R.mipmap.home)).into(houseImage);
+        container.addView(houseImage, 0);
+
         return houseImage;
     }
 

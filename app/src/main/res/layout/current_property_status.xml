@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/slider_background"
+        android:elevation="3dp"
+        android:padding="5dp"
+        android:text="Your current Property status"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/current_order_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:elevation="3dp"
+        android:src="@mipmap/home"
+        app:civ_border_color="#6b01ff"
+        app:civ_border_width="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/tv_current_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/slider_background"
+        android:backgroundTint="#6b01ff"
+        android:elevation="3dp"
+        android:padding="12dp"
+        android:text="Rented Since : May 16 2016"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_order_image" />
+
+
+    <TextView
+        android:id="@+id/my_account_your_rating_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Your Ratings"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_order_status" />
+
+    <LinearLayout
+        android:id="@+id/my_account_rating_your_current_property"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_account_your_rating_text_view"
+        app:layout_constraintVertical_bias="0.052">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:tint="#9C9A9A"
+            app:srcCompat="@mipmap/star" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:tint="#9C9A9A"
+            app:srcCompat="@mipmap/star" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:tint="#9C9A9A"
+            app:srcCompat="@mipmap/star" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:tint="#9C9A9A"
+            app:srcCompat="@mipmap/star" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:tint="#9C9A9A"
+            app:srcCompat="@mipmap/star" />
+    </LinearLayout>
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:background="@drawable/slider_background"-->
+<!--        android:elevation="3dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="5dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_current_order_status">-->
+
+<!--        <ImageView-->
+<!--            android:tint="@color/RecyclerViewBackground"-->
+<!--            android:id="@+id/ordered_indicator"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:src="@drawable/selected_dot"-->
+<!--            android:translationX="12dp" />-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/order_packed_progress"-->
+<!--            style="?android:attr/progressBarStyleHorizontal"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:progress="0"-->
+<!--            android:progressBackgroundTint="@color/RecyclerViewBackground"-->
+<!--            android:progressTint="@color/successGreen"-->
+<!--            android:translationX="8dp" />-->
+
+<!--        <ImageView-->
+<!--            android:tint="@color/RecyclerViewBackground"-->
+<!--            android:id="@+id/packed_indicator"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:src="@drawable/selected_dot"-->
+<!--            android:translationX="4dp" />-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/packed_shipped_progress"-->
+<!--            style="?android:attr/progressBarStyleHorizontal"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:progress="0"-->
+<!--            android:progressBackgroundTint="@color/RecyclerViewBackground"-->
+<!--            android:progressTint="@color/successGreen" />-->
+
+<!--        <ImageView-->
+<!--            android:tint="@color/RecyclerViewBackground"-->
+<!--            android:id="@+id/shipped_indicator"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:src="@drawable/selected_dot"-->
+<!--            android:translationX="-4dp" />-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/shipped_delivered_progress"-->
+<!--            style="?android:attr/progressBarStyleHorizontal"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:progress="0"-->
+<!--            android:progressBackgroundTint="@color/RecyclerViewBackground"-->
+<!--            android:progressTint="@color/successGreen"-->
+<!--            android:translationX="-8dp" />-->
+
+<!--        <ImageView-->
+<!--            android:tint="@color/RecyclerViewBackground"-->
+<!--            android:id="@+id/delivered_indicator"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            android:src="@drawable/selected_dot"-->
+<!--            android:translationX="-12dp" />-->
+
+
+<!--    </LinearLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apnaaasiyana.Adapters.HouseImagesAdapter;
 import com.example.apnaaasiyana.R;
@@ -20,6 +21,10 @@ import com.google.api.Distribution;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.houseImagesList;
+import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.loadPropertyData;
+import static com.example.apnaaasiyana.utilityClass.getTypeOfPropertyName;
 
 public class HouseDetailsActivity extends AppCompatActivity {
 
@@ -82,16 +87,19 @@ public class HouseDetailsActivity extends AppCompatActivity {
         datePosted = findViewById(R.id.date_posted_text_view);
         houseLocation = findViewById(R.id.house_location_text_view);
 
-        final List<String> houseImages = new ArrayList<>();
+        long index = (long) Integer.parseInt(getIntent().getStringExtra("index"));
+        long typeOfProperty = (long) Integer.parseInt(getIntent().getStringExtra("typeOfProperty"));
 
-        //Todo : add images to this list from Firebase afterwards;
+        //final List<String> houseImages = new ArrayList<>();
 
-        //houseImages.add()
-        //Todo : dummy adapter being used for now , add it to firebase query finally
-        HouseImagesAdapter houseImagesAdapter = new HouseImagesAdapter(houseImages);
+        String nameOfProperty = getTypeOfPropertyName(typeOfProperty);
+
+        houseImagesList = new ArrayList<>();
+        HouseImagesAdapter houseImagesAdapter = new HouseImagesAdapter(houseImagesList);
+        loadPropertyData(houseImagesAdapter, index, nameOfProperty, getApplicationContext());
+
         houseImagesViewPager.setAdapter(houseImagesAdapter);
-
-        //Todo : add the adapter inside the firebase query and then add items to list and pass it to adapter
+        houseImagesAdapter.notifyDataSetChanged();
 
         viewPagerIndicator.setupWithViewPager(houseImagesViewPager, true);
 

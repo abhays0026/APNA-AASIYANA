@@ -1,4 +1,4 @@
-package com.example.apnaaasiyana;
+package com.example.apnaaasiyana.Fragments;
 
 
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.example.apnaaasiyana.Adapters.CategoryAdapter;
 import com.example.apnaaasiyana.Adapters.HomePageAdapter;
+import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.data.Model.CategoryModel;
 import com.example.apnaaasiyana.data.Model.HomePageModel;
 import com.google.api.Distribution;
@@ -48,6 +49,8 @@ public class HomeScreenFragment extends Fragment {
         // Required empty public constructor
     }
 
+    
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,23 +67,11 @@ public class HomeScreenFragment extends Fragment {
          */
         categoryRecycelerView.setLayoutManager(layoutManager);
 
-        //categoryModelList = new ArrayList<>();
-
-//        //Todo : remove this add and use firebase to add the data, just for testing now
-//        categoryModelList.add(new CategoryModel("#","House"));
-//        categoryModelList.add(new CategoryModel("#","Flat"));
-//        categoryModelList.add(new CategoryModel("#","Villa"));
-//        categoryModelList.add(new CategoryModel("#","Rent"));
-
-
         categoryAdapter = new CategoryAdapter(categoryModelList);
         categoryRecycelerView.setAdapter(categoryAdapter);
 
         if(categoryModelList.size() == 0){
 
-//            categoryModelList.add(new CategoryModel(
-//                    firestore.collection()
-//            ));
             loadCategories(categoryAdapter, getContext());
 
         }else{

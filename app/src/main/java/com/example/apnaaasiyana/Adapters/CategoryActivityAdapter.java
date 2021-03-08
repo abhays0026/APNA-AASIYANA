@@ -2,7 +2,6 @@ package com.example.apnaaasiyana.Adapters;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
 
 import java.util.List;
 
-import static com.example.apnaaasiyana.HomeScreenFragment.RENTED_HOUSE;
-import static com.example.apnaaasiyana.HomeScreenFragment.VACANT_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.RENTED_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.VACANT_HOUSE;
 
 public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivityAdapter.ViewHolder> {
 
@@ -88,10 +87,12 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), HouseDetailsActivity.class);
-                    intent.putExtra("typeOfProperty",categoryItemsList.get(getAdapterPosition())
-                            .getTypeOfProperty());
-                    intent.putExtra("index",categoryItemsList.get(getAdapterPosition()).getIndex());
+
+                    intent.putExtra("typeOfProperty",categoryItemsList.get(getAdapterPosition()).getTypeOfProperty()+"");
+                    intent.putExtra("index",categoryItemsList.get(getAdapterPosition()).getIndex()+"");
+
                     itemView.getContext().startActivity(intent);
+
 
                 }
             });
@@ -118,14 +119,14 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
 
             if (houseType1 == VACANT_HOUSE) {
                 //change image to vacant one
-                houseType.setText("VACANT");
+                houseType.setText("VACANT, index : " +  categoryItemsList.get(getAdapterPosition()).getIndex()  );
                 houseType.setBackgroundColor(Color.parseColor("#ff0000"));
                 houseTypeIcon.setImageResource(R.mipmap.home);
                 date.setText("Since \n" + date1);
 
             } else if (houseType1 == RENTED_HOUSE) {
                 //change image to rented one
-                houseType.setText("RENTED");
+                houseType.setText("RENTED , index : " + categoryItemsList.get(getAdapterPosition()).getIndex() );
                 houseType.setBackgroundColor(Color.parseColor("#ff0000"));
                 houseTypeIcon.setImageResource(R.mipmap.home);
                 //date.setTextSize(10);

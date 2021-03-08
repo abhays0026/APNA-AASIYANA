@@ -1,5 +1,12 @@
 package com.example.apnaaasiyana;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.example.apnaaasiyana.Activity.MainActivity;
+import com.example.apnaaasiyana.Activity.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class utilityClass {
 
 
@@ -18,7 +25,7 @@ public class utilityClass {
         int typeOfProperty = 1;
 
         switch (categoryName){
-            case "FLAT" :
+            case "FLATS" :
                 typeOfProperty = 1;
                 break;
             case "HOME" :
@@ -37,5 +44,32 @@ public class utilityClass {
 
         return typeOfProperty;
     }
+
+    public static String getTypeOfPropertyName(long typeOfProperty){
+
+        String nameOfProperty = "Flats";
+        switch ((int)typeOfProperty){
+            case 1 :
+                nameOfProperty = "Flats";
+                break;
+            case 2 :
+                nameOfProperty = "Home";
+                break;
+            case 3 :
+                nameOfProperty = "Independent";
+                break;
+            case 4 :
+                nameOfProperty = "Rooms";
+                break;
+            case 5 :
+                nameOfProperty = "Villa";
+                break;
+        }
+
+        return nameOfProperty;
+
+    }
+
+
 
 }

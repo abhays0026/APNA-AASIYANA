@@ -1,11 +1,14 @@
 package com.example.apnaaasiyana.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.apnaaasiyana.HomeScreenFragment;
+import com.example.apnaaasiyana.Fragments.HomeScreenFragment;
+import com.example.apnaaasiyana.Fragments.MyAccountFragment;
 import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.ui.home.HomeFragment;
+import com.example.apnaaasiyana.utilityClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -37,8 +40,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.loadCategoryData;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,9 +58,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profilePic;
     private TextView userName;
     private TextView userEmail;
+    private ImageView isProfileVerified;
 
-    FirebaseUser user;
+    private FirebaseUser user;
     private NavigationView navigationView;
+    private View header;
+
+    @Override
+    public void onBackPressed() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,21 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        profilePic = findViewById(R.id.profile_pic);
-        userName = findViewById(R.id.user_name);
-        userEmail = findViewById(R.id.user_email);
-
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        //if(user != null){
-
-            //Todo : user glide to replace it the image in the firebase that is uploaded
-            // profilePic.setImageResource(R.mipmap.home);
-           // userName.setText(user.getDisplayName());
-            //userEmail.setText(user.getEmail());
-
-        //}
 
 
         //Todo : change the function of floating btn afterwards or remove it
@@ -102,16 +96,27 @@ public class MainActivity extends AppCompatActivity {
         });
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        header = navigationView.getHeaderView(0);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.explore_properties, R.id.nav_my_wishlist,
+                R.id.nav_home, R.id.my_history, R.id.nav_my_wishlist,
                 R.id.rate_us, R.id.nav_signout)
                 .setDrawerLayout(drawer)
                 .build();
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        profilePic = header.findViewById(R.id.profile_pic);
+        userName = header.findViewById(R.id.user_name);
+        userEmail = header.findViewById(R.id.user_email);
+        isProfileVerified = findViewById(R.id.is_profile_verified);
+
+        setUserDetailsInNavView(user);
 
 
         //navigationView.setNavigationItemSelectedListener(this);
@@ -142,16 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        loadCategoryData( "Flats", this);
-//        loadCategoryData( "Independent", this);
-//        loadCategoryData( "Villa", this);
-//        loadCategoryData( "Rooms", this);
-
-
-
-
-
-
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -162,12 +157,17 @@ public class MainActivity extends AppCompatActivity {
         int id = menuItem.getItemId();
         menuItem.setChecked(true);
 
+        //Toast.makeText(this, " ID : " + id, Toast.LENGTH_SHORT).show();
+
+
 
         if (id == R.id.nav_home) {//nav_my_mall
-            actionBarLogo.setVisibility(View.VISIBLE);
+            actionBarLogo.setVisibility(View.INVISIBLE);
+
+//            actionBarLogo.setVisibility(View.VISIBLE);
             invalidateOptionsMenu();
-            setFragment(new HomeFragment());
-        } else if (id == R.id.explore_properties) {
+            setFragment(new HomeScreenFragment());
+        } else if (id == R.id.my_history) {
 
             //gotoFragment("My Orders", new MyOrderFragment(),ORDERS_FRAGMENT);
 
@@ -183,17 +183,28 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (id == R.id.nav_signout) {
 
-            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                FirebaseAuth.getInstance().signOut();
-            }
-            RegisterActivity.setSignUpFragment = false;
+            signOUtFunction(MainActivity.this);
 
-            startActivity(new Intent(MainActivity.this, RegisterActivity.class));
-            finish();
-            //gotoFragment("My Account", new MyAccountFragment(),ACCOUNT_FRAGMENT);
+        }else if(id == R.id.nav_share){
+
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+
+            //TODO : in shareBody, put the link of the app to download
+            String shareBody = "Here is the share content body";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+
+        }else if (id == R.id.nav_my_account){
+
+            //TODO : populate it as needed
+
+            setFragment(new MyAccountFragment());
 
 
         }
+
 
         setTitle(menuItem.getTitle());
 
@@ -221,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             actionBarLogo.setVisibility(View.VISIBLE);
             invalidateOptionsMenu();
             setFragment(new HomeFragment());
-        } else if (id == R.id.explore_properties) {
+        } else if (id == R.id.my_history) {
 
             //gotoFragment("My Orders", new MyOrderFragment(),ORDERS_FRAGMENT);
 
@@ -272,6 +283,37 @@ public class MainActivity extends AppCompatActivity {
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(frameLayout.getId(), fragment);
         transaction.commit();
+    }
+
+
+    public void signOUtFunction(final Context context){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseAuth.getInstance().signOut();
+        }
+        RegisterActivity.setSignUpFragment = false;
+
+        context.startActivity(new Intent(context, RegisterActivity.class));
+
+        finish();
+
+
+    }
+
+    private void setUserDetailsInNavView(final FirebaseUser user){
+
+        if(user != null ){
+            //Toast.makeText(this, "Email : " + R.id.user_email, Toast.LENGTH_SHORT).show();
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
+
+        }else{
+
+            Toast.makeText(this, "You are not Signed in ! ", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
     }
 
 }

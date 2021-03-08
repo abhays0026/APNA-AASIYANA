@@ -9,9 +9,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/explore_properties"
+            android:id="@+id/my_history"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Explore" />
+            android:title="History" />
         <item
             android:id="@+id/nav_my_wishlist"
             android:icon="@drawable/ic_menu_gallery"
@@ -33,9 +33,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_share" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_my_account"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:title="@string/menu_my_account" />
         </menu>
     </item>
 

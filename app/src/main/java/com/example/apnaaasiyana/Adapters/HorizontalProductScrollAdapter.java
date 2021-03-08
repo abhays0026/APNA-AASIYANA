@@ -19,8 +19,8 @@ import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
 
 import java.util.List;
 
-import static com.example.apnaaasiyana.HomeScreenFragment.RENTED_HOUSE;
-import static com.example.apnaaasiyana.HomeScreenFragment.VACANT_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.RENTED_HOUSE;
+import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.VACANT_HOUSE;
 
 public class HorizontalProductScrollAdapter extends RecyclerView.Adapter <HorizontalProductScrollAdapter.ViewHolder>{
 
