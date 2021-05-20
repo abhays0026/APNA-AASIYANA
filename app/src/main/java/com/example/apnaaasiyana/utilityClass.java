@@ -45,6 +45,25 @@ public class utilityClass {
         return typeOfProperty;
     }
 
+
+    /**
+     *
+     * @param type : integer to the type of the house
+     * @return name of the type
+     */
+    public static String getHouseType(int type){
+
+        String houseType = "RENTED";
+        if(type == 1){
+            houseType = "VACANT";
+        }else if(type == 2){
+            houseType = "RENTED";
+        }
+
+        return houseType;
+
+    }
+
     public static String getTypeOfPropertyName(long typeOfProperty){
 
         String nameOfProperty = "Flats";
@@ -68,6 +87,31 @@ public class utilityClass {
 
         return nameOfProperty;
 
+    }
+
+    /**
+     * function to convert actual amount in numbers to another form
+     * eg. 45000 --> 45k
+     * or 4500000 --> 45lacs
+     * or 450000000 --> 45 crores
+     */
+    public static String getConvertedPrice(Float housePrice){
+
+        String price = "";
+
+        //float housePriceInt = Float.parseFloat(housePrice);
+
+        if(housePrice < 1000.0){
+            price = housePrice + " rupees";
+        }else if(housePrice < 100000){
+            price = housePrice/1000 + " k";
+        }else if(housePrice <10000000){
+            price = housePrice/100000 + " lacs";
+        }else {
+            price = housePrice/10000000 + " crores";
+        }
+
+        return price;
     }
 
 

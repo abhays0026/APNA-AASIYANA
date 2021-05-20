@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private int currentFragement = -1;
 
+    private TextView postPropertyTextView;
     private ImageView actionBarLogo;
     private ImageView profilePic;
     private TextView userName;
@@ -129,10 +130,20 @@ public class MainActivity extends AppCompatActivity {
         userName = header.findViewById(R.id.user_name);
         userEmail = header.findViewById(R.id.user_email);
         isProfileVerified = findViewById(R.id.is_profile_verified);
-
+        postPropertyTextView = findViewById(R.id.post_property_action_bar);
 
 
         setUserDetailsInNavView(user, profilePicStorageReference);
+
+        postPropertyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, PostPropertyActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         //navigationView.setNavigationItemSelectedListener(this);

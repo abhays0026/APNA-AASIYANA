@@ -11,8 +11,10 @@ import com.example.apnaaasiyana.Adapters.HouseImagesAdapter;
 import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.data.Model.CategoryModel;
 import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
+import com.example.apnaaasiyana.data.Model.HouseDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,6 +27,8 @@ import java.util.Map;
 
 import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.RENTED_HOUSE;
 import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.VACANT_HOUSE;
+import static com.example.apnaaasiyana.utilityClass.getConvertedPrice;
+import static com.example.apnaaasiyana.utilityClass.getHouseType;
 import static com.example.apnaaasiyana.utilityClass.getTypeOfProperty;
 
 public class DBqueries {
@@ -36,6 +40,8 @@ public class DBqueries {
     public static List<HorizontalProductScrollModel> categoryDataList = new ArrayList<>();
 
     public static List<String> houseImagesList = new ArrayList<>();
+
+    public static HouseDetails houseDetail = new HouseDetails();
 
     /**
      * List for activities other than the home page
@@ -130,10 +136,15 @@ public class DBqueries {
     }
 
 
-    public static void loadPropertyData(final HouseImagesAdapter houseImagesAdapter,
-                                        final long index,
-                                        final String typeOfPropertyName,
-                                        final Context context){
+    public static HouseDetails loadPropertyData(final HouseImagesAdapter houseImagesAdapter,
+                                                final long index,
+                                                final String typeOfPropertyName,
+                                                final Context context){
+
+//        final HouseDetails houseDetails = new HouseDetails();
+
+        houseDetail = new HouseDetails();
+
 
         //houseImagesList = new ArrayList<>();
 
@@ -173,10 +184,59 @@ public class DBqueries {
 
                 houseImagesAdapter.notifyDataSetChanged();
 
+                float housePrice = Float.parseFloat(documentSnapshot.get("housePrice").toString());
+                String convertedHousePrice = getConvertedPrice(housePrice);
+                String houseSize = documentSnapshot.get("houseSize").toString();
+                String houseType = getHouseType(Integer.parseInt(documentSnapshot.get("houseType").toString()));
+
+                String datePosted = documentSnapshot.get("date").toString();
+                String houseAddress = documentSnapshot.get("houseAddress").toString();
+                String houseCarpetArea = documentSnapshot.get("houseCarpetArea").toString();
+                long numberOfBedrooms = (long)documentSnapshot.get("noOfBedrooms");
+                long numberOfBathrooms = (long)documentSnapshot.get("noOfBathrooms");
+                double averageRatings = (double)documentSnapshot.get("ratingAverage");
+                boolean isRented = (boolean)documentSnapshot.get("isRented");
+                String userIdOfTenant = documentSnapshot.get("userIdOfTenant").toString();
+                String userIdOfHouseOwner = documentSnapshot.get("userIdOfHouseOwner").toString();
+
+               // String rentAgreement = documentSnapshot.get("rentAgreement").toString();
+
+                /**
+                 * contains ratings : 1 star, 2 star .....
+                 */
+                List<Long> ratings = (List<Long>)documentSnapshot.get("ratings");
+
+                long totalRating = (long)documentSnapshot.get("ratingsTotal");
+
+                boolean isCarParkAvailable = (boolean)documentSnapshot.get("carParking");
+
+                String houseName = documentSnapshot.get("houseName").toString();
+
+                String rentAgreement = documentSnapshot.get("rentAgreement").toString();
+
+                Map<String , String> tenantDetails= (Map<String , String>)documentSnapshot.get("tenantDetails");
+
+
+                HouseDetails houseDetails = new HouseDetails();
+
+                houseDetail.setHouseDetails(houseName, isCarParkAvailable,
+                        datePosted, houseAddress,houseCarpetArea,convertedHousePrice,houseSize,
+                        houseType,numberOfBedrooms,numberOfBathrooms,averageRatings,ratings, totalRating
+                ,isRented, userIdOfTenant, userIdOfHouseOwner, rentAgreement, tenantDetails);
+
+                //Toast.makeText(context, "houseDetails 1 : " + houseDetail.toString() , Toast.LENGTH_LONG).show();
+
+
+                //houseDetail = houseDetails;
+                //Todo : create a HouseDetails class, put all the above data into it and return it to the activity
+
             }
         });
 
+        //Toast.makeText(context, "houseDetails : " + houseDetail.toString() , Toast.LENGTH_LONG).show();
 
+
+        return houseDetail;
     }
 
 }

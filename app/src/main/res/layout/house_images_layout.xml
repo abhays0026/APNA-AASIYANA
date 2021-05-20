@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager_indicator">
@@ -133,11 +133,16 @@
         android:id="@+id/view_visible_when_house_rented_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/curved_background"
-        android:elevation="10dp"
+        android:elevation="12dp"
         android:orientation="vertical"
         android:outlineProvider="bounds"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/house_images_viewpager">
@@ -315,7 +320,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/orangeBackground"
             android:orientation="horizontal">
 

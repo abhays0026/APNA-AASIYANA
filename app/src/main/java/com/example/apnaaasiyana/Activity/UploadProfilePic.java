@@ -41,30 +41,7 @@ public class UploadProfilePic extends AppCompatActivity {
 
     private StorageReference storageReference;
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        String displayName = getIntent().getStringExtra("userName");
-//
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                .setDisplayName(displayName).build();
-//
-//        user.updateProfile(profileUpdates)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(UploadProfilePic.this, "Display name updated", Toast.LENGTH_SHORT).show();
-//                            //Log.d(TAG, "User profile updated.");
-//                        }
-//                    }
-//                });
-//
-//
-//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

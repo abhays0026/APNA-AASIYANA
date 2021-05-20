@@ -63,12 +63,17 @@ public class UserAuthentication {
 //                            userDetails.setUserName(user.getDisplayName());
                             //userDetails.setUserPassword(use);
 
-                            userDetailsMap.put("UserDetails", userDetails);
+                            //userDetailsMap.put("UserDetails", userDetails);
 
-                            firestore.collection("USERS")
-                                    .add(userDetailsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            userDetailsMap.put(FirebaseAuth.getInstance().getCurrentUser()
+                                    .getUid(), userDetails);
+
+                            firestore.collection("USERS").document(
+                                    FirebaseAuth.getInstance().getCurrentUser().getUid()
+                            ).set(userDetailsMap).
+                                    addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
 //                                        Intent intent = new Intent(context, MainActivity.class);
@@ -83,6 +88,27 @@ public class UserAuthentication {
 
                                 }
                             });
+
+//
+//                            firestore.collection("USERS")
+//                                    //.document(firebaseAuth.getCurrentUser().getUid()                            ).set(userDetailsMap).addC
+//                                    .add(userDetailsMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<DocumentReference> task) {
+//
+//                                    if (task.isSuccessful()) {
+////                                        Intent intent = new Intent(context, MainActivity.class);
+////                                        context.startActivity(intent);
+//                                    } else {
+//
+//                                        //signUpFloatingBtn.setEnabled(true);
+//                                        String error = task.getException().getMessage();
+//                                        Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+//
+//                                    }
+//
+//                                }
+//                            });
 
 //                            Intent intent = new Intent(context, MainActivity.class);
 //                            context.startActivity(intent);

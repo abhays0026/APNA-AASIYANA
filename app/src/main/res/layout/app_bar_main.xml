@@ -16,13 +16,29 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <ImageView
+                android:id="@+id/action_bar_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:id="@+id/action_bar_logo"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/red_email" />
+
+            <TextView
+                android:id="@+id/post_property_action_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:adjustViewBounds="true"
+                android:background="@color/orangeBackground"
+                android:elevation="10dp"
                 android:src="@mipmap/red_email"
-                android:adjustViewBounds="true"/>
+                android:text="     POST \nPROPERTY"
+                android:textColor="#ffffff"
+                android:textSize="14dp" />
+
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
