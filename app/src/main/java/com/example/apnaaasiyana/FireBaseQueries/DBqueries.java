@@ -139,7 +139,7 @@ public class DBqueries {
     public static HouseDetails loadPropertyData(final HouseImagesAdapter houseImagesAdapter,
                                                 final long index,
                                                 final String typeOfPropertyName,
-                                                final Context context){
+                                                final Context context) {
 
 //        final HouseDetails houseDetails = new HouseDetails();
 
@@ -157,26 +157,26 @@ public class DBqueries {
          */
 
         String typeOfPropertyNameTemp = typeOfPropertyName;
-        if(typeOfPropertyName.toUpperCase().equals("FLATS")){
+        if (typeOfPropertyName.toUpperCase().equals("FLATS")) {
             typeOfPropertyNameTemp = "Flat";
-        }else if (typeOfPropertyName.toUpperCase().equals("ROOMS")){
+        } else if (typeOfPropertyName.toUpperCase().equals("ROOMS")) {
             typeOfPropertyNameTemp = "Room";
         }
 
 
-      Toast.makeText(context, "Property : " + typeOfPropertyNameTemp + "_" + index, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Property : " + typeOfPropertyNameTemp + "_" + index, Toast.LENGTH_SHORT).show();
 
         firestore.collection("CATEGORIES").document(typeOfPropertyName)
-                .collection(typeOfPropertyName.toUpperCase()).document(typeOfPropertyNameTemp+"_" + index)
+                .collection(typeOfPropertyName.toUpperCase()).document(typeOfPropertyNameTemp + "_" + index)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                 DocumentSnapshot documentSnapshot = task.getResult();
 
-                List< String > houseImgList = (List<String>)documentSnapshot.get("houseImages");
+                List<String> houseImgList = (List<String>) documentSnapshot.get("houseImages");
 
-                for(int i = 0;i<houseImgList.size(); ++i){
+                for (int i = 0; i < houseImgList.size(); ++i) {
 
                     houseImagesList.add(houseImgList.get(i));
 
@@ -187,42 +187,43 @@ public class DBqueries {
                 float housePrice = Float.parseFloat(documentSnapshot.get("housePrice").toString());
                 String convertedHousePrice = getConvertedPrice(housePrice);
                 String houseSize = documentSnapshot.get("houseSize").toString();
-                String houseType = getHouseType(Integer.parseInt(documentSnapshot.get("houseType").toString()));
-
+//                String houseType = getHouseType(Integer.parseInt(documentSnapshot.get("houseType").toString()));
+                long houseType = Long.parseLong(documentSnapshot.get("houseType").toString());
                 String datePosted = documentSnapshot.get("date").toString();
                 String houseAddress = documentSnapshot.get("houseAddress").toString();
                 String houseCarpetArea = documentSnapshot.get("houseCarpetArea").toString();
-                long numberOfBedrooms = (long)documentSnapshot.get("noOfBedrooms");
-                long numberOfBathrooms = (long)documentSnapshot.get("noOfBathrooms");
-                double averageRatings = (double)documentSnapshot.get("ratingAverage");
-                boolean isRented = (boolean)documentSnapshot.get("isRented");
+                long numberOfBedrooms = (long) documentSnapshot.get("noOfBedrooms");
+                long numberOfBathrooms = (long) documentSnapshot.get("noOfBathrooms");
+                double averageRatings = (double) documentSnapshot.get("ratingAverage");
+                boolean isRented = (boolean) documentSnapshot.get("isRented");
                 String userIdOfTenant = documentSnapshot.get("userIdOfTenant").toString();
                 String userIdOfHouseOwner = documentSnapshot.get("userIdOfHouseOwner").toString();
 
-               // String rentAgreement = documentSnapshot.get("rentAgreement").toString();
+                // String rentAgreement = documentSnapshot.get("rentAgreement").toString();
 
                 /**
                  * contains ratings : 1 star, 2 star .....
                  */
-                List<Long> ratings = (List<Long>)documentSnapshot.get("ratings");
+                List<Long> ratings = new ArrayList<>();
+                //List<Long> ratings = (List<Long>) documentSnapshot.get("ratings");
 
-                long totalRating = (long)documentSnapshot.get("ratingsTotal");
+                long totalRating = (long) documentSnapshot.get("ratingsTotal");
 
-                boolean isCarParkAvailable = (boolean)documentSnapshot.get("carParking");
+                boolean isCarParkAvailable = (boolean) documentSnapshot.get("carParking");
 
                 String houseName = documentSnapshot.get("houseName").toString();
 
                 String rentAgreement = documentSnapshot.get("rentAgreement").toString();
 
-                Map<String , String> tenantDetails= (Map<String , String>)documentSnapshot.get("tenantDetails");
+                Map<String, String> tenantDetails = (Map<String, String>) documentSnapshot.get("tenantDetails");
 
 
                 HouseDetails houseDetails = new HouseDetails();
 
                 houseDetail.setHouseDetails(houseName, isCarParkAvailable,
-                        datePosted, houseAddress,houseCarpetArea,convertedHousePrice,houseSize,
-                        houseType,numberOfBedrooms,numberOfBathrooms,averageRatings,ratings, totalRating
-                ,isRented, userIdOfTenant, userIdOfHouseOwner, rentAgreement, tenantDetails);
+                        datePosted, houseAddress, houseCarpetArea, convertedHousePrice, houseSize,
+                        houseType, numberOfBedrooms, numberOfBathrooms, averageRatings, ratings, totalRating
+                        , isRented, userIdOfTenant, userIdOfHouseOwner, rentAgreement, tenantDetails);
 
                 //Toast.makeText(context, "houseDetails 1 : " + houseDetail.toString() , Toast.LENGTH_LONG).show();
 

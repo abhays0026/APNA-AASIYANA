@@ -7,22 +7,22 @@ import java.util.Map;
 public class HouseDetails implements Serializable {
 
     private String houseName;//
-    private String datePosted;///
+    private String datePosted;//
     private boolean isCarParkAvailable;//
     private String houseAddress;//
     private String houseCarpetArea;//
     private String housePrice;//
-    private String houseSize;/// write the same as bedroom + BHK ( 2 BHK for 2 bedrooms)
-    private String houseType;/// WRITE 1 , as vacant when posted
+    private String houseSize;//
+    private long houseType;//
     private long noOfBedrooms;//
     private long noOfBathrooms;//
-    private double averageRatings;///
+    private double averageRatings;//
     private List<Long> ratings;///
-    private long totalRating;///
-    private boolean isRented;///
-    private String userIdOfTenant;///
-    private String userIdOfHouseOwner;///
-    private String rentAgreement;///
+    private long totalRating;//
+    private boolean isRented;//
+    private String userIdOfTenant;//
+    private String userIdOfHouseOwner;//
+    private String rentAgreement;//
 
     private Map<String, String> tenantDetails;///
 
@@ -76,7 +76,7 @@ public class HouseDetails implements Serializable {
 
     public HouseDetails(String houseName, String datePosted, boolean isCarParkAvailable,
                         String houseAddress, String houseCarpetArea, String housePrice,
-                        String houseSize, String houseType, long noOfBedrooms,
+                        String houseSize, long houseType, long noOfBedrooms,
                         long noOfBathrooms, double averageRatings, List<Long> ratings,
                         long totalRating, boolean isRented, String userIdOfTenant,
                         String userIdOfHouseOwner, String rentAgreement, Map<String, String> tenantDetails) {
@@ -103,7 +103,7 @@ public class HouseDetails implements Serializable {
     public void setHouseDetails(String houseName, boolean isCarParkAvailable,
                                 String datePosted, String houseAddress,
                                 String houseCarpetArea, String housePrice,
-                                String houseSize, String houseType, long noOfBedrooms,
+                                String houseSize, long houseType, long noOfBedrooms,
                                 long noOfBathrooms, double averageRatings,
                                 List<Long> ratings, long totalRating,
                                 boolean isRented, String userIdOfTenant,
@@ -189,11 +189,11 @@ public class HouseDetails implements Serializable {
         this.houseSize = houseSize;
     }
 
-    public String getHouseType() {
+    public long getHouseType() {
         return houseType;
     }
 
-    public void setHouseType(String houseType) {
+    public void setHouseType(long houseType) {
         this.houseType = houseType;
     }
 

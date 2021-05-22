@@ -32,12 +32,13 @@ import java.util.List;
 import static com.example.apnaaasiyana.FireBaseQueries.FirestorePostQueries.DbPostQueries.count;
 import static com.example.apnaaasiyana.FireBaseQueries.FirestorePostQueries.DbPostQueries.getTotalPropertiesOfRequiredType;
 import static com.example.apnaaasiyana.FireBaseQueries.FirestorePostQueries.DbPostQueries.increasePropertyCount;
+import static com.example.apnaaasiyana.FireBaseQueries.FirestorePostQueries.DbPostQueries.uploadNewAddedPropertyDataToFirestore;
 
 public class UploadHousePicturesActivity extends AppCompatActivity {
 
 
     //ProgressDialog TempDialog;
-    CountDownTimer mCountDownTimer;
+    CountDownTimer mCountDownTimer, mCountDownTimer1;
     int i = 0;
 
 
@@ -52,9 +53,11 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
     private Button uploadImagesButton;
 
     String typeOfProperty;
+    private int typeOFPropertyInt;
 
     private List<Uri> imageListLinks;
 
+    private int index;
     private static final int PICK_IMAGE = 1;
     Button chooserBtn, uploaderBtn;
     TextView alert;
@@ -64,6 +67,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
     List<String> urlStrings;
 
     private StorageReference storageReference;
+    private HouseDetails houseDetails;
+
+    private String date;
 
 
     @Override
@@ -83,8 +89,10 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
 
         uploadImagesButton = findViewById(R.id.upload_images_button);
 
-        HouseDetails houseDetails = (HouseDetails) getIntent().getSerializableExtra("houseDetails");
+        houseDetails = (HouseDetails) getIntent().getSerializableExtra("houseDetails");
         typeOfProperty = getIntent().getStringExtra("typeOfProperty");
+        date = getIntent().getStringExtra("date");
+
 
         selectImage1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,10 +230,39 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
 
 
                                         int count3 = finalCount;
+                                        index = count3;
                                         increasePropertyCount(typeOfProperty, count3);
 
                                     }
                                 });
+
+                                mCountDownTimer1 = new CountDownTimer(3000, 1000){
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+//                                        Toast.makeText(UploadHousePicturesActivity.this,
+//                                                "date : " + houseDetails.getDatePosted().toString()
+//                                        ,Toast.LENGTH_SHORT).show();
+
+                                        uploadNewAddedPropertyDataToFirestore(houseDetails,imageListLinks,
+                                                index,propertyName,
+                                                typeOFPropertyInt, date);
+
+                                        Intent intent = new Intent(UploadHousePicturesActivity.this,
+                                                MainActivity.class);
+
+                                        Toast.makeText(UploadHousePicturesActivity.this,
+                                                "Successful ", Toast.LENGTH_SHORT).show();
+
+                                        //startActivity(intent);
+
+                                    }
+                                }.start();
+
 
 //                startActivity(new Intent(UploadProfilePic.this, MainActivity.class));
 
@@ -370,13 +407,17 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
 
         String propertyName = typeOfProperty;
         if (typeOfProperty.toLowerCase().equals("flats")) {
+            typeOFPropertyInt = 1;
             propertyName = "Flats";
         } else if (typeOfProperty.toLowerCase().equals("villa")) {
             propertyName = "Villa";
+            typeOFPropertyInt = 2;
         } else if (typeOfProperty.toLowerCase().equals("rooms")) {
             propertyName = "Rooms";
+            typeOFPropertyInt = 3;
         } else if (typeOfProperty.toLowerCase().equals("independent")) {
             propertyName = "Independent";
+            typeOFPropertyInt = 4;
         }
 
         return propertyName;
