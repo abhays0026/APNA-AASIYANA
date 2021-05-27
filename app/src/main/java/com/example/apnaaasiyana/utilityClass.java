@@ -64,6 +64,23 @@ public class utilityClass {
 
     }
 
+    public static String getPropertyNameFromIndex(long typeOfProperty){
+
+        String name = "Flat";
+        if(typeOfProperty == 1){
+            name = "Flat";
+        }else if(typeOfProperty == 2){
+            name = "Villa";
+        }else if(typeOfProperty == 3){
+            name = "Room";
+        }else if(typeOfProperty == 4){
+            name = "Independent";
+        }
+
+        return name;
+
+    }
+
     public static String getTypeOfPropertyName(long typeOfProperty){
 
         String nameOfProperty = "Flats";

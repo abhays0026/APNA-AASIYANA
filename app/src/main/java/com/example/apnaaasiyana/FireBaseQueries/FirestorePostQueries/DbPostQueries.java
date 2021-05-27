@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.example.apnaaasiyana.data.Model.CategoryModel;
 import com.example.apnaaasiyana.data.Model.HouseDetails;
+import com.example.apnaaasiyana.data.Model.PropertyTypeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import android.os.Handler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +40,7 @@ public class DbPostQueries {
     public static void uploadNewAddedPropertyDataToFirestore(final HouseDetails houseDetails,
                                                              final List<Uri> houseImagesLinksList,
                                                              final int index, final String typeOfPropertyName,
-                                                             int typeOFPropertyInt, final String date){
+                                                             int typeOFPropertyInt, final String date) {
 
         final String houseName = getHouseName(typeOfPropertyName);
 
@@ -50,7 +52,7 @@ public class DbPostQueries {
                 .set(houseDetails.getTenantDetails());
 
 
-        CountDownTimer mCountDownTimer = new CountDownTimer(2000, 1000){
+        CountDownTimer mCountDownTimer = new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -60,26 +62,23 @@ public class DbPostQueries {
             public void onFinish() {
 
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
-                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_"+index)
+                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("carParking", houseDetails.isCarParkAvailable());
-
 
 
                 //System.out.println("DATE : " + houseDetails.getDatePosted().toString());
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
-                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_"+index)
+                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("date", date);
 
 
-
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
-                .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_"+index)
-                .update("houseAddress", houseDetails.getHouseAddress());
+                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
+                        .update("houseAddress", houseDetails.getHouseAddress());
 
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
                         .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("houseImage", houseImagesLinksList.get(0).toString());
-
 
 
 //                Map<String, Object> map = new HashMap<>();
@@ -89,13 +88,12 @@ public class DbPostQueries {
 //                        .update(map);
 
 
-
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
                         .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("houseName", houseDetails.getHouseName());
 
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
-                        .collection(typeOfPropertyName.toUpperCase()).document(houseName +"_" + index)
+                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("housePrice", houseDetails.getHousePrice());
 
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
@@ -142,7 +140,7 @@ public class DbPostQueries {
 //
                 String rentAgreement = houseDetails.getRentAgreement();
 
-                if(rentAgreement == null || rentAgreement.equals("")){
+                if (rentAgreement == null || rentAgreement.equals("")) {
                     rentAgreement = "";
                 }
 //
@@ -170,13 +168,16 @@ public class DbPostQueries {
                         .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("userIdOfTenant", "");
 
+//                firestore.collection("CATEGORIES").document(typeOfPropertyName)
+//                        .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
+//                        .update("inte", "");
+
                 int s = houseImagesLinksList.size();
                 String[] imageLinks = new String[s];
 
-                for(int i=0;i<s;++i){
+                for (int i = 0; i < s; ++i) {
                     imageLinks[i] = houseImagesLinksList.get(i).toString();
                 }
-
 
 
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
@@ -184,10 +185,13 @@ public class DbPostQueries {
                         .update("houseImages", FieldValue.arrayUnion(imageLinks));
 
 
-
                 firestore.collection("CATEGORIES").document(typeOfPropertyName)
                         .collection(typeOfPropertyName.toUpperCase()).document(houseName + "_" + index)
                         .update("tenantDetails", houseDetails.getTenantDetails());
+
+
+                //adding to owners id
+                uploadPropertyToFirebaseIDOfOwner(houseName, index);
 
                 //for ratings
 //                int[] ratings = new int[5];
@@ -216,12 +220,17 @@ public class DbPostQueries {
         }.start();
 
 
+    }
 
+    private static void uploadPropertyToFirebaseIDOfOwner(final String propertyName
+            , final int index) {
 
+//        firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
+//                .update()
 
     }
 
-    private static String getHouseName(final String typeOfProperty){
+    private static String getHouseName(final String typeOfProperty) {
 
         String propertyName = typeOfProperty;
         if (typeOfProperty.toLowerCase().equals("flats")) {
@@ -243,36 +252,36 @@ public class DbPostQueries {
     public static void getTotalPropertiesOfRequiredType(final String typeOfProperty) {
 
         final int count2 = count;
-       // if(typeOfProperty.toLowerCase().equals("flats")) {
+        // if(typeOfProperty.toLowerCase().equals("flats")) {
 
 
-            firestore.collection("CATEGORIES").get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        firestore.collection("CATEGORIES").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                            if (task.isSuccessful()) {
+                        if (task.isSuccessful()) {
 
-                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
 
-                                    System.out.println("Here : "  +  documentSnapshot.get("categoryName").
-                                            toString().toUpperCase());
+                                System.out.println("Here : " + documentSnapshot.get("categoryName").
+                                        toString().toUpperCase());
 
-                                    if (typeOfProperty.toUpperCase().equals(
-                                            documentSnapshot.get("categoryName").toString().toUpperCase())) {
+                                if (typeOfProperty.toUpperCase().equals(
+                                        documentSnapshot.get("categoryName").toString().toUpperCase())) {
 
-                                        System.out.println("Here2 : "  +  documentSnapshot.get("categoryName").
-                                                toString().toUpperCase() + " count : " + documentSnapshot.get("count").toString());
+                                    System.out.println("Here2 : " + documentSnapshot.get("categoryName").
+                                            toString().toUpperCase() + " count : " + documentSnapshot.get("count").toString());
 
-                                        count = Integer.parseInt(documentSnapshot.get("count").toString());
-                                    }
+                                    count = Integer.parseInt(documentSnapshot.get("count").toString());
                                 }
-
                             }
-                        }
-                    });
 
-       // }
+                        }
+                    }
+                });
+
+        // }
 //
 //
 //                    Handler handler = new Handler();
@@ -288,11 +297,11 @@ public class DbPostQueries {
 //        }, 4000);
 
 
-       // return count;
+        // return count;
 
     }
 
-    public static void increasePropertyCount(final String typeOfProperty, final int count){
+    public static void increasePropertyCount(final String typeOfProperty, final int count) {
 
         firestore.collection("CATEGORIES").document(typeOfProperty).update("count", count);
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.apnaaasiyana.Fragments.HomeScreenFragment;
 import com.example.apnaaasiyana.Fragments.MyAccountFragment;
+import com.example.apnaaasiyana.Fragments.MyPropertiesFragment;
 import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.my_history, R.id.nav_my_wishlist,
+                R.id.nav_home, R.id.my_properties, R.id.nav_my_wishlist,
                 R.id.rate_us, R.id.nav_signout)
                 .setDrawerLayout(drawer)
                 .build();
@@ -194,7 +195,13 @@ public class MainActivity extends AppCompatActivity {
 //            actionBarLogo.setVisibility(View.VISIBLE);
             invalidateOptionsMenu();
             setFragment(new HomeScreenFragment());
-        } else if (id == R.id.my_history) {
+        } else if (id == R.id.my_properties) {
+
+//            Toast.makeText(MainActivity.this, "My properties pressed ! user id " +
+//                    FirebaseAuth.getInstance().getUid(), Toast.LENGTH_SHORT).show();
+
+
+            setFragment(new MyPropertiesFragment());
 
             //gotoFragment("My Orders", new MyOrderFragment(),ORDERS_FRAGMENT);
 
@@ -259,7 +266,12 @@ public class MainActivity extends AppCompatActivity {
             actionBarLogo.setVisibility(View.VISIBLE);
             invalidateOptionsMenu();
             setFragment(new HomeFragment());
-        } else if (id == R.id.my_history) {
+        } else if (id == R.id.my_properties) {
+            actionBarLogo.setVisibility(View.VISIBLE);
+            invalidateOptionsMenu();
+//            Toast.makeText(MainActivity.this, "My properties pressed !", Toast.LENGTH_SHORT).show();
+
+            setFragment(new MyPropertiesFragment());
 
             //gotoFragment("My Orders", new MyOrderFragment(),ORDERS_FRAGMENT);
 

@@ -12,9 +12,11 @@ import com.example.apnaaasiyana.R;
 import com.example.apnaaasiyana.data.Model.CategoryModel;
 import com.example.apnaaasiyana.data.Model.HorizontalProductScrollModel;
 import com.example.apnaaasiyana.data.Model.HouseDetails;
+import com.example.apnaaasiyana.data.Model.PropertyTypeModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,6 +31,7 @@ import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.RENTED_HOUSE
 import static com.example.apnaaasiyana.Fragments.HomeScreenFragment.VACANT_HOUSE;
 import static com.example.apnaaasiyana.utilityClass.getConvertedPrice;
 import static com.example.apnaaasiyana.utilityClass.getHouseType;
+import static com.example.apnaaasiyana.utilityClass.getPropertyNameFromIndex;
 import static com.example.apnaaasiyana.utilityClass.getTypeOfProperty;
 
 public class DBqueries {
@@ -36,6 +39,9 @@ public class DBqueries {
     public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public static List<CategoryModel> categoryModelList = new ArrayList<>();
+    public static List<CategoryModel> categoryModelListRented = new ArrayList<>();
+
+    public static List<PropertyTypeModel> myPropertiesList = new ArrayList<>();
 
     public static List<HorizontalProductScrollModel> categoryDataList = new ArrayList<>();
 
@@ -58,8 +64,13 @@ public class DBqueries {
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+
+
                                 categoryModelList.add(new CategoryModel(documentSnapshot.get("icon").toString(),
                                         documentSnapshot.get("categoryName").toString()));
+
+
+
                             }
 
                             categoryAdapter.notifyDataSetChanged();
@@ -107,14 +118,35 @@ public class DBqueries {
 
                                         int typeOfProperty = getTypeOfProperty(categoryName);
 //                                        categoryDataList.add(new HorizontalProductScrollModel(
-                                        categoriesMap.get(categoryName).add(new HorizontalProductScrollModel(
-                                                (long) documentSnapshot.get("index"),
-                                                (long) typeOfProperty,
-                                                houseType, documentSnapshot.get("houseImage").toString(),
-                                                documentSnapshot.get("houseName").toString(),
-                                                documentSnapshot.get("houseAddress").toString(),
-                                                typeImage, documentSnapshot.get("date").toString()
-                                        ));
+
+
+                                        //TODO : add one more condition that is owner id is not the same as the properties
+                                        //being displayed
+                                        if(!(boolean)documentSnapshot.get("isRented")) {
+                                            categoriesMap.get(categoryName).add(new HorizontalProductScrollModel(
+                                                    (long) documentSnapshot.get("index"),
+                                                    (long) typeOfProperty,
+                                                    houseType, documentSnapshot.get("houseImage").toString(),
+                                                    documentSnapshot.get("houseName").toString(),
+                                                    documentSnapshot.get("houseAddress").toString(),
+                                                    typeImage, documentSnapshot.get("date").toString()
+                                            ));
+                                        }
+
+                                            String ownerId = documentSnapshot.get("userIdOfHouseOwner").toString();
+
+                                            if(ownerId.equals(FirebaseAuth.getInstance().getUid())){
+
+                                                myPropertiesList.add(new PropertyTypeModel(
+                                                        categoryName,
+                                                        (long) documentSnapshot.get("index"),
+                                                        documentSnapshot.get("houseImage").toString(),
+                                                        documentSnapshot.get("houseAddress").toString(),
+                                                        documentSnapshot.get("houseName").toString()));
+
+                                            }
+
+
 
 
                                     }
@@ -164,7 +196,7 @@ public class DBqueries {
         }
 
 
-        Toast.makeText(context, "Property : " + typeOfPropertyNameTemp + "_" + index, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Property : " + typeOfPropertyNameTemp + "_" + index, Toast.LENGTH_SHORT).show();
 
         firestore.collection("CATEGORIES").document(typeOfPropertyName)
                 .collection(typeOfPropertyName.toUpperCase()).document(typeOfPropertyNameTemp + "_" + index)

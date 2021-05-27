@@ -27,6 +27,12 @@ import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.loadCategoryDat
 
 public class CategoryActivity extends AppCompatActivity {
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     private Toolbar toolbar;
     private RecyclerView categoryRecyclerView;
 
@@ -38,10 +44,12 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         String title = getIntent().getStringExtra("CategoryName");
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         categoryRecyclerView = findViewById(R.id.category_recyclerview);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -55,23 +63,59 @@ public class CategoryActivity extends AppCompatActivity {
         Toast.makeText(this, "Property : " + title, Toast.LENGTH_SHORT).show();
 
 
-        if (categoriesMap.get(title) != null) {
+        if (!title.toLowerCase().equals("home")) {
+            if (categoriesMap.get(title) != null) {
 
-              categoryList = categoriesMap.get(title);
-              categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
-              categoryRecyclerView.setAdapter(categoryActivityAdapter);
-              //Toast.makeText(this, "First statement ", Toast.LENGTH_SHORT).show();
+                categoryList = categoriesMap.get(title);
+                categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
+                categoryRecyclerView.setAdapter(categoryActivityAdapter);
+                //Toast.makeText(this, "First statement ", Toast.LENGTH_SHORT).show();
 
-          }else{
+            } else {
 
-              categoriesMap.put(title, new ArrayList<HorizontalProductScrollModel>());
-              categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
-              loadCategoryData(categoryActivityAdapter, title, this);
+                categoriesMap.put(title, new ArrayList<HorizontalProductScrollModel>());
+                categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
+                loadCategoryData(categoryActivityAdapter, title, this);
 
-          }
+            }
 
-          categoryRecyclerView.setAdapter(categoryActivityAdapter);
+        }else{
+            String titleArray[] = {"Flats", "Villa", "Rooms", "Independent"};
 
+            for( String i : titleArray){
+
+
+                if (categoriesMap.get(title) != null) {
+
+                    categoryList = categoriesMap.get(title);
+                    categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
+                    categoryRecyclerView.setAdapter(categoryActivityAdapter);
+                    //Toast.makeText(this, "First statement ", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    categoriesMap.put(title, new ArrayList<HorizontalProductScrollModel>());
+                    categoryActivityAdapter = new CategoryActivityAdapter(categoriesMap.get(title));
+
+
+
+                    loadCategoryData(categoryActivityAdapter, title, this);
+
+                }
+
+                for(HorizontalProductScrollModel j : categoriesMap.get(i)){
+
+
+                    categoriesMap.get("Home").add(j);
+
+                }
+
+
+
+            }
+        }
+
+        categoryRecyclerView.setAdapter(categoryActivityAdapter);
 
 
     }

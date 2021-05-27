@@ -31,11 +31,11 @@
                 android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:adjustViewBounds="true"
-                android:background="@color/orangeBackground"
-                android:elevation="10dp"
+                android:background="@drawable/edit_text_border"
+                android:elevation="16dp"
                 android:src="@mipmap/red_email"
                 android:text="     POST \nPROPERTY"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="14dp" />
 
 
@@ -47,6 +47,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

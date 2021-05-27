@@ -213,7 +213,7 @@ public class PostPropertyActivity extends AppCompatActivity implements AdapterVi
         });
 
 
-        houseType = 1;
+       // houseType = getHouseType(typeOfProperty);
         isRented = false;
         isVacant = true;
         ratingsTotal = 0;
@@ -237,8 +237,8 @@ public class PostPropertyActivity extends AppCompatActivity implements AdapterVi
 //                housePrice, houseSize, houseType, noOfBedrooms, noOfBathrooms, ratingAverage, ratings,
 //                ratingsTotal, isRented, userIfOfTenant, userIdOfHouseOwner, rentAgreement, tenantDetails);
 
-        Toast.makeText(PostPropertyActivity.this, "houseDEtails ; " + houseDetails.toString(), Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(PostPropertyActivity.this, "houseDetails ; " + houseDetails.toString(), Toast.LENGTH_SHORT)
+//                .show();
 
         ///Spinner activation
         typeOfPropertiesSpinner = findViewById(R.id.type_of_property_spinner);
@@ -309,12 +309,16 @@ public class PostPropertyActivity extends AppCompatActivity implements AdapterVi
 
         if (property.toLowerCase().equals("flats")) {
             typeOfProperty = "Flats";
+            houseType = 1;
         } else if (property.toLowerCase().equals("villa")) {
             typeOfProperty = "Villa";
+            houseType = 2;
         } else if (property.toLowerCase().equals("rooms")) {
             typeOfProperty = "Rooms";
+            houseType = 3;
         } else if (property.toLowerCase().equals("independent house")) {
             typeOfProperty = "Independent";
+            houseType = 4;
         }
 
     }
@@ -323,6 +327,8 @@ public class PostPropertyActivity extends AppCompatActivity implements AdapterVi
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
 }
 
 

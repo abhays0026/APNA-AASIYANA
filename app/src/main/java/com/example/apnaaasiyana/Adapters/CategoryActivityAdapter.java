@@ -83,13 +83,22 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
             date = itemView.findViewById(R.id.house_date_text_view);
             houseTypeIcon = itemView.findViewById(R.id.house_type_icon_image_view);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(itemView.getContext(), HouseDetailsActivity.class);
 
-                    intent.putExtra("typeOfProperty",categoryItemsList.get(getAdapterPosition()).getTypeOfProperty()+"");
-                    intent.putExtra("index",categoryItemsList.get(getAdapterPosition()).getIndex()+"");
+                    intent.putExtra("typeOfProperty", categoryItemsList.get(getAdapterPosition()).getTypeOfProperty() + "");
+                    intent.putExtra("index", categoryItemsList.get(getAdapterPosition()).getIndex() + "");
+                    //intent.putExtra("houseType", categoryItemsList.get(getAdapterPosition()).getType());
+
+                    /**
+                     * if previousActivity == CategoryActivityAdapter then 1
+                     * else if previousActivity == MyPropertiesAdapter then 2
+                     */
+                    intent.putExtra("previousActivity", 1 + "");
+
 
                     itemView.getContext().startActivity(intent);
 
@@ -117,23 +126,23 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
             //Todo : add vacant and rented icons in mipmap then replace them here in both types
 
 
-            if (houseType1 == VACANT_HOUSE) {
+            //if (houseType1 == VACANT_HOUSE) {
                 //change image to vacant one
-                houseType.setText("VACANT, index : " +  categoryItemsList.get(getAdapterPosition()).getIndex()  );
+                houseType.setText("VACANT");
                 houseType.setBackgroundColor(Color.parseColor("#ff0000"));
                 houseTypeIcon.setImageResource(R.mipmap.home);
                 date.setText("Since \n" + date1);
 
-            } else if (houseType1 == RENTED_HOUSE) {
-                //change image to rented one
-                houseType.setText("RENTED , index : " + categoryItemsList.get(getAdapterPosition()).getIndex() );
-                houseType.setBackgroundColor(Color.parseColor("#ff0000"));
-                houseTypeIcon.setImageResource(R.mipmap.home);
-                //date.setTextSize(10);
-                date.setText("Rental Date \n" + date1 + " \nmonthly");
-                //Log.i("DATE", date);
-
-            }
+//            } else if (houseType1 == RENTED_HOUSE) {
+//                //change image to rented one
+//                houseType.setText("RENTED , index : " + categoryItemsList.get(getAdapterPosition()).getIndex());
+//                houseType.setBackgroundColor(Color.parseColor("#ff0000"));
+//                houseTypeIcon.setImageResource(R.mipmap.home);
+//                //date.setTextSize(10);
+//                date.setText("Rental Date \n" + date1 + " \nmonthly");
+//                //Log.i("DATE", date);
+//
+//            }
 
         }
 

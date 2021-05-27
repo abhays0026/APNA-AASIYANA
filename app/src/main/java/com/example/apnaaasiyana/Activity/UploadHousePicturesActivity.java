@@ -149,17 +149,17 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
             });
         }
 
-        Toast.makeText(UploadHousePicturesActivity.this,
-                ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(UploadHousePicturesActivity.this,
+//                ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                .show();
         if (imageList.size() >= 1) {
 
             uploadImagesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(UploadHousePicturesActivity.this, "Upload Images Button clicked" +
-                            ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(UploadHousePicturesActivity.this, "Upload Images Button clicked" +
+//                            ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                            .show();
                     UploadImagesToFirebase(imageList);
                 }
             });
@@ -193,10 +193,10 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
 
-                    constraintLayout.setAlpha(1);
-                    constraintLayout.setEnabled(true);
-                    Toast.makeText(UploadHousePicturesActivity.this, "property : " + propertyName +
-                            "  count : " + count, Toast.LENGTH_SHORT).show();
+                    //constraintLayout.setAlpha(1);
+                    //constraintLayout.setEnabled(true);
+//                    Toast.makeText(UploadHousePicturesActivity.this, "property : " + propertyName +
+//                            "  count : " + count, Toast.LENGTH_SHORT).show();
 
                     count++;
                     //upload image to firebase
@@ -215,7 +215,7 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                                Toast.makeText(UploadHousePicturesActivity.this, "File " + count2 + "Uploaded Successfully !", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(UploadHousePicturesActivity.this, "File " + count2 + "Uploaded Successfully !", Toast.LENGTH_SHORT).show();
 
                                 fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
@@ -225,8 +225,8 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                                         Toast.makeText(UploadHousePicturesActivity.this,
                                                 "Images Uploaded Successfully !", Toast.LENGTH_SHORT).show();
 
-                                        Toast.makeText(UploadHousePicturesActivity.this,
-                                                "URI : " + uri.toString(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(UploadHousePicturesActivity.this,
+//                                                "URI : " + uri.toString(), Toast.LENGTH_SHORT).show();
 
 
                                         int count3 = finalCount;
@@ -236,7 +236,7 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                mCountDownTimer1 = new CountDownTimer(3000, 1000){
+                                mCountDownTimer1 = new CountDownTimer(3000, 1000) {
                                     @Override
                                     public void onTick(long millisUntilFinished) {
 
@@ -248,17 +248,15 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
 //                                                "date : " + houseDetails.getDatePosted().toString()
 //                                        ,Toast.LENGTH_SHORT).show();
 
-                                        uploadNewAddedPropertyDataToFirestore(houseDetails,imageListLinks,
-                                                index,propertyName,
+                                        uploadNewAddedPropertyDataToFirestore(houseDetails, imageListLinks,
+                                                index, propertyName,
                                                 typeOFPropertyInt, date);
 
-                                        Intent intent = new Intent(UploadHousePicturesActivity.this,
-                                                MainActivity.class);
 
                                         Toast.makeText(UploadHousePicturesActivity.this,
                                                 "Successful ", Toast.LENGTH_SHORT).show();
 
-                                        //startActivity(intent);
+                                        //if(count == imageList.size())
 
                                     }
                                 }.start();
@@ -277,6 +275,10 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
 
 
                     }
+
+                    Intent intent = new Intent(UploadHousePicturesActivity.this,
+                            MainActivity.class);
+                    startActivity(intent);
 
 
                 }
@@ -311,9 +313,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage1.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
             }
 
@@ -324,9 +326,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage2.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
 
             }
@@ -338,9 +340,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage3.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
             }
 
@@ -351,9 +353,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage4.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
             }
 
@@ -364,9 +366,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage5.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
             }
 
@@ -377,9 +379,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 selectImage6.setImageURI(imageUri);
                 imageList.add(imageUri);
-                Toast.makeText(UploadHousePicturesActivity.this,
-                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(UploadHousePicturesActivity.this,
+//                        ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                        .show();
 
             }
 
@@ -391,9 +393,9 @@ public class UploadHousePicturesActivity extends AppCompatActivity {
             uploadImagesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(UploadHousePicturesActivity.this, "Upload Images Button clicked" +
-                            ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(UploadHousePicturesActivity.this, "Upload Images Button clicked" +
+//                            ", Imagelist size : " + imageList.size(), Toast.LENGTH_SHORT)
+//                            .show();
                     UploadImagesToFirebase(imageList);
                 }
             });

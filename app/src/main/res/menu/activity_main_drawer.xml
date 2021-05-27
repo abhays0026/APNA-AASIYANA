@@ -9,15 +9,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/my_history"
+            android:id="@+id/my_properties"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="History" />
+            android:title="My properties" />
         <item
             android:id="@+id/nav_my_wishlist"
+            android:visible="false"
             android:icon="@drawable/ic_menu_gallery"
             android:title="My Wishlist" />
         <item
             android:id="@+id/rate_us"
+            android:visible="false"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Rate us" />
         <item

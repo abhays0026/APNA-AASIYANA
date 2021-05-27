@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.apnaaasiyana.Adapters.CategoryAdapter;
 import com.example.apnaaasiyana.Adapters.HomePageAdapter;
 import com.example.apnaaasiyana.R;
@@ -25,6 +27,8 @@ import com.google.api.Distribution;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.categoryModelList;
 
 
@@ -32,6 +36,8 @@ import static com.example.apnaaasiyana.FireBaseQueries.DBqueries.categoryModelLi
  * A simple {@link Fragment} subclass.
  */
 public class HomeScreenFragment extends Fragment {
+
+    GifImageView gifImageView;
 
     public static int VACANT_HOUSE = 1;
     public static long RENTED_HOUSE = 2;
@@ -61,6 +67,12 @@ public class HomeScreenFragment extends Fragment {
         categoryRecycelerView = view.findViewById(R.id.category_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        gifImageView = view.findViewById(R.id.gif_image_view);
+
+        Glide.with(container.getContext()).load(
+                "https://media.giphy.com/media/l0IylQoMkcbZUbtKw/giphy.gif")
+                .apply(new RequestOptions().placeholder(R.mipmap.home)).into(gifImageView);
 
         /***
          * Category Recycler view being worked upon

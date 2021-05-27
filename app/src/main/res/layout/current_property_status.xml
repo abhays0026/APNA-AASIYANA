@@ -46,7 +46,9 @@
         android:backgroundTint="#6b01ff"
         android:elevation="3dp"
         android:padding="12dp"
-        android:text="Rented Since : May 16 2016"
+        android:text="Nothing bought or rented"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -61,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Your Ratings"
+        android:visibility="gone"
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -69,6 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_current_order_status" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/my_account_rating_your_current_property"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -105,6 +109,7 @@
             app:srcCompat="@mipmap/star" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/imageView13"
             android:layout_width="match_parent"
             android:layout_height="30dp"
